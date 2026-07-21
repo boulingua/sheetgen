@@ -52,6 +52,7 @@
 % ── Worksheet header ────────────────────────────────────────────────────────
 % \worksheetheader{Title}{Subtitle line}{Badge label}{badge color}
 \newcommand{\worksheetheader}[4]{%
+  \gdef\blgtitle{#1}%
   \thispagestyle{empty}%
   {\blgsemibold\LARGE\color{blgfg} #1\par}%
   \vspace{0.35em}%
@@ -69,15 +70,14 @@
 \newcommand{\blglines}[1][3]{\par\vspace{0.3em}%
   \foreach \n in {1,...,#1}{\noindent\color{blgrule}\rule{\linewidth}{0.4pt}\par\vspace{1.1em}}}
 
-% ── Watermark: logo + author, lower-left of every page ──────────────────────
+% ── Watermark: icon + © author · title, centred at the foot of every page ───
+\newcommand{\blgtitle}{}   % set by \worksheetheader to the sheet's title
 \newcommand{\blgwatermark}{%
   \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south west,inner sep=0pt]
-      at ($(current page.south west)+(12mm,11mm)$)
-      {\includegraphics[height=8mm]{assets/boulingua-logo.png}};
-    \node[anchor=west,inner sep=0pt,text=blgmuted,align=left]
-      at ($(current page.south west)+(22mm,13mm)$)
-      {\blgsemibold\footnotesize boulingua\\[1pt]\scriptsize\mdseries S.~Le Boulanger};
+    \node[anchor=south,inner sep=0pt] at ($(current page.south)+(0,10mm)$)
+      {\raisebox{-1.15mm}{\includegraphics[height=4.4mm]{assets/boulingua-logo.png}}%
+       \hspace{1.6mm}{\blgsemibold\footnotesize\color{blgmuted}%
+         \textcopyright\ S.~Le Boulanger \ \textbullet\ \blgtitle}};
   \end{tikzpicture}}
 \AddToShipoutPictureFG{\blgwatermark}
 
