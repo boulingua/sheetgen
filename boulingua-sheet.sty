@@ -1,0 +1,88 @@
+% boulingua-sheet.sty — worksheet style in the boulingua design language.
+% Compile with XeLaTeX or LuaLaTeX (fontspec). Self-contained: bundles the
+% Source Sans 3 / JetBrains Mono fonts and the boulingua logo.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{boulingua-sheet}[2026/07/21 boulingua worksheet style]
+
+\RequirePackage{fontspec}
+\RequirePackage{xcolor}
+\RequirePackage[a4paper,top=2.4cm,bottom=2.6cm,left=2.2cm,right=2.2cm]{geometry}
+\RequirePackage{titlesec}
+\RequirePackage{enumitem}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
+\RequirePackage{tcolorbox}
+\RequirePackage{graphicx}
+\RequirePackage{eso-pic}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\RequirePackage{fancyhdr}
+
+% ── Palette (mirrors the websites' design tokens) ───────────────────────────
+\definecolor{blgaccent}{HTML}{1A73E8}
+\definecolor{blgaccenthover}{HTML}{0B57D0}
+\definecolor{blgfg}{HTML}{23272B}
+\definecolor{blgmuted}{HTML}{6B7280}
+\definecolor{blgrule}{HTML}{E4E7EB}
+\definecolor{blgsurface}{HTML}{F7F8FA}
+\definecolor{blgcefrA}{HTML}{4CAF50}
+\definecolor{blgcefrB}{HTML}{1A73E8}
+\definecolor{blgcefrC}{HTML}{8E24AA}
+\color{blgfg}
+
+% ── Fonts (bundled) ─────────────────────────────────────────────────────────
+\setmainfont{SourceSans3}[
+  Path=fonts/, Extension=.ttf,
+  UprightFont=*-Regular, BoldFont=*-Bold, FontFace={l}{n}{*-Light}]
+\newfontfamily\blgsemibold{SourceSans3-Semibold}[Path=fonts/, Extension=.ttf]
+\setmonofont{JetBrainsMono-Regular}[Path=fonts/, Extension=.ttf]
+\newfontfamily\blgmarker{PermanentMarker-Regular}[Path=fonts/, Extension=.ttf]
+
+% ── Section styling ─────────────────────────────────────────────────────────
+\titleformat{\section}{\blgsemibold\Large\color{blgfg}}{\thesection.}{0.5em}{}[{\color{blgrule}\titlerule[1pt]}]
+\titleformat{\subsection}{\blgsemibold\large\color{blgaccenthover}}{}{0em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.6em}
+\setlist{leftmargin=1.4em,itemsep=0.25em,topsep=0.3em}
+
+% ── Level badge (CEFR / Niveau) ─────────────────────────────────────────────
+\newcommand{\blgbadge}[2][blgaccent]{%
+  \tikz[baseline=(b.base)]\node[fill=#1,text=white,rounded corners=3pt,
+    inner xsep=6pt,inner ysep=2pt,font=\blgsemibold\footnotesize](b){#2};}
+
+% ── Worksheet header ────────────────────────────────────────────────────────
+% \worksheetheader{Title}{Subtitle line}{Badge label}{badge color}
+\newcommand{\worksheetheader}[4]{%
+  \thispagestyle{empty}%
+  {\blgsemibold\LARGE\color{blgfg} #1\par}%
+  \vspace{0.35em}%
+  {\color{blgmuted}\normalsize #2 \hfill \blgbadge[#4]{#3}}\par
+  \vspace{0.35em}{\color{blgaccent}\rule{\linewidth}{1.4pt}}\par
+  \vspace{1.1em}}
+
+% ── Answer-key box ──────────────────────────────────────────────────────────
+\newtcolorbox{blganswers}{colback=blgsurface,colframe=blgrule,boxrule=0.6pt,
+  arc=3pt,left=8pt,right=8pt,top=6pt,bottom=6pt,
+  title={\blgsemibold\small Solutions},fonttitle=\color{blgfg},
+  coltitle=blgfg,attach title to upper=\ }
+
+% Writing lines for hand-written answers
+\newcommand{\blglines}[1][3]{\par\vspace{0.3em}%
+  \foreach \n in {1,...,#1}{\noindent\color{blgrule}\rule{\linewidth}{0.4pt}\par\vspace{1.1em}}}
+
+% ── Watermark: logo + author, lower-left of every page ──────────────────────
+\newcommand{\blgwatermark}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west,inner sep=0pt]
+      at ($(current page.south west)+(12mm,11mm)$)
+      {\includegraphics[height=8mm]{assets/boulingua-logo.png}};
+    \node[anchor=west,inner sep=0pt,text=blgmuted,align=left]
+      at ($(current page.south west)+(22mm,13mm)$)
+      {\blgsemibold\footnotesize boulingua\\[1pt]\scriptsize\mdseries S.~Le Boulanger};
+  \end{tikzpicture}}
+\AddToShipoutPictureFG{\blgwatermark}
+
+% Footer: page number, muted, right
+\pagestyle{fancy}\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[R]{\color{blgmuted}\footnotesize\thepage}
+\endinput
