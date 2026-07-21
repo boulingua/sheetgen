@@ -17,6 +17,17 @@
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
 \RequirePackage{fancyhdr}
+\RequirePackage{changepage}
+\RequirePackage{hyperref}
+% PDF metadata — attribute the author in the file's core properties.
+\hypersetup{pdfauthor={S. Le Boulanger},hidelinks}
+
+% Body indent: the title bar + accent rule run the full text width; the
+% worksheet content sits inside a slightly indented column beneath them.
+\newlength{\blgbodyindent}\setlength{\blgbodyindent}{8mm}
+\newenvironment{sheetbody}%
+  {\begin{adjustwidth}{\blgbodyindent}{0pt}}%
+  {\end{adjustwidth}}
 
 % ── Palette (mirrors the websites' design tokens) ───────────────────────────
 % Per-language accent colours (flag-safe; one signature hue per language, none
@@ -80,7 +91,9 @@
   \thispagestyle{empty}%
   {\blgsemibold\LARGE\color{blgfg} #1\hfill\raisebox{-3.2mm}[0pt][0pt]{\blglangmark[11mm]}\par}%
   \vspace{0.35em}%
-  {\color{blgmuted}\normalsize #2 \hfill \blgbadge[#4]{#3}}\par
+  % Level (Niveau) as plain text — no coloured highlight. #4 (badge colour)
+  % is accepted for signature compatibility but intentionally unused here.
+  {\color{blgmuted}\normalsize #2 \hfill {\blgsemibold\color{blgfg}#3}}\par
   \vspace{0.35em}{\color{blgaccent}\rule{\linewidth}{1.4pt}}\par
   \vspace{1.1em}}
 
