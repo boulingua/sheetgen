@@ -79,32 +79,31 @@ language accent `blgaccent`.
 
 ## Per-language accent colours & icons
 
-Every language project has **its own signature accent** and **its own abstract
-icon**. The accents are **flag-safe** — each hue is deliberately chosen *not* to
+Every language project has **its own signature accent**, shown as a **pentagon** in that colour. The accents are **flag-safe** — each hue is deliberately chosen *not* to
 appear in that language's own flag — mutually distinct (≥20° apart on the hue
 wheel), kept clear of the boulingua hub blue, and contrast-checked for light and
 dark backgrounds. Select one with `\blgsetlang{code}`:
 
 <!-- palette:begin -->
-| Code | Language | Icon | Light accent | Dark accent |
-|------|----------|------|--------------|-------------|
-| `daf` | German | hexagon | `#1D87A7` | `#7ECEE7` |
-| `efl` | English | circle | `#248D19` | `#89E77E` |
-| `fle` | French | square | `#4B8D19` | `#ACE77E` |
-| `afl` | Arabic | pentagon | `#4A23C7` | `#977EE7` |
-| `cfl` | Chinese | triangle | `#2334C7` | `#7E89E7` |
-| `ele` | Spanish | diamond | `#198D81` | `#7EE7DC` |
-| `gfl` | Greek | U-shape | `#C74A23` | `#E7977E` |
-| `ils` | Italian | ring | `#8023C7` | `#B97EE7` |
-| `jfl` | Japanese | rounded square | `#867B18` | `#E7DC7E` |
-| `lle` | Latin | semicircle | `#C72334` | `#E77E89` |
-| `nsf` | Norwegian | star | `#6D8618` | `#CEE77E` |
-| `nvt` | Dutch | plus | `#198D34` | `#7EE797` |
-| `pfl` | Polish | chevron | `#AD701F` | `#E7B97E` |
-| `ple` | Portuguese | trapezoid | `#B723C7` | `#DC7EE7` |
-| `rki` | Russian | octagon | `#198D5B` | `#7EE7B9` |
-| `tfl` | Turkish | arch | `#C7236A` | `#E77EAC` |
-| `ufl` | Ukrainian | heptagon | `#C723A1` | `#E77ECE` |
+| Code | Language | Light accent | Dark accent |
+|------|----------|--------------|-------------|
+| `daf` | German | `#1D87A7` | `#7ECEE7` |
+| `efl` | English | `#248D19` | `#89E77E` |
+| `fle` | French | `#4B8D19` | `#ACE77E` |
+| `afl` | Arabic | `#4A23C7` | `#977EE7` |
+| `cfl` | Chinese | `#2334C7` | `#7E89E7` |
+| `ele` | Spanish | `#198D81` | `#7EE7DC` |
+| `gfl` | Greek | `#C74A23` | `#E7977E` |
+| `ils` | Italian | `#8023C7` | `#B97EE7` |
+| `jfl` | Japanese | `#867B18` | `#E7DC7E` |
+| `lle` | Latin | `#C72334` | `#E77E89` |
+| `nsf` | Norwegian | `#6D8618` | `#CEE77E` |
+| `nvt` | Dutch | `#198D34` | `#7EE797` |
+| `pfl` | Polish | `#AD701F` | `#E7B97E` |
+| `ple` | Portuguese | `#B723C7` | `#DC7EE7` |
+| `rki` | Russian | `#198D5B` | `#7EE7B9` |
+| `tfl` | Turkish | `#C7236A` | `#E77EAC` |
+| `ufl` | Ukrainian | `#C723A1` | `#E77ECE` |
 <!-- palette:end -->
 
 The worksheets use the **light** accent (they print on white). The dark values
