@@ -19,8 +19,28 @@
 \RequirePackage{fancyhdr}
 
 % ── Palette (mirrors the websites' design tokens) ───────────────────────────
-\definecolor{blgaccent}{HTML}{1A73E8}
-\definecolor{blgaccenthover}{HTML}{0B57D0}
+% Per-language accent colours (flag-safe; one signature hue per language, none
+% of which appears in that language's flag). Default is boulingua blue; call
+% e.g. \blgsetlang{daf} after \usepackage to switch the sheet to that language.
+\definecolor{blgaccent}{HTML}{1A73E8}\definecolor{blgaccenthover}{HTML}{0B57D0}
+\definecolor{acc-daf}{HTML}{2370C7}\definecolor{acch-daf}{HTML}{1C5AA0}% German
+\definecolor{acc-efl}{HTML}{348D19}\definecolor{acch-efl}{HTML}{266612}% English
+\definecolor{acc-fle}{HTML}{588618}\definecolor{acch-fle}{HTML}{3F5F11}% French
+\definecolor{acc-afl}{HTML}{4A23C7}\definecolor{acch-afl}{HTML}{3B1CA0}% Arabic
+\definecolor{acc-cfl}{HTML}{1C88A0}\definecolor{acch-cfl}{HTML}{156779}% Chinese
+\definecolor{acc-ele}{HTML}{2336C7}\definecolor{acch-ele}{HTML}{1C2CA0}% Spanish
+\definecolor{acc-gfl}{HTML}{C75D23}\definecolor{acch-gfl}{HTML}{A04B1C}% Greek
+\definecolor{acc-ils}{HTML}{8323C7}\definecolor{acch-ils}{HTML}{691CA0}% Italian
+\definecolor{acc-jfl}{HTML}{198D78}\definecolor{acch-jfl}{HTML}{126656}% Japanese
+\definecolor{acc-lle}{HTML}{C72323}\definecolor{acch-lle}{HTML}{A01C1C}% Latin
+\definecolor{acc-nsf}{HTML}{198D4F}\definecolor{acch-nsf}{HTML}{126639}% Norwegian
+\definecolor{acc-nvt}{HTML}{198D26}\definecolor{acch-nvt}{HTML}{12661C}% Dutch
+\definecolor{acc-pfl}{HTML}{A0791C}\definecolor{acch-pfl}{HTML}{795B15}% Polish
+\definecolor{acc-ple}{HTML}{798017}\definecolor{acch-ple}{HTML}{545910}% Portuguese
+\definecolor{acc-rki}{HTML}{BC23C7}\definecolor{acch-rki}{HTML}{981CA0}% Russian
+\definecolor{acc-tfl}{HTML}{C72396}\definecolor{acch-tfl}{HTML}{A01C79}% Turkish
+\definecolor{acc-ufl}{HTML}{C7235D}\definecolor{acch-ufl}{HTML}{A01C4B}% Ukrainian
+\newcommand{\blgsetlang}[1]{\colorlet{blgaccent}{acc-#1}\colorlet{blgaccenthover}{acch-#1}}
 \definecolor{blgfg}{HTML}{23272B}
 \definecolor{blgmuted}{HTML}{6B7280}
 \definecolor{blgrule}{HTML}{E4E7EB}
