@@ -23,24 +23,28 @@
 % of which appears in that language's flag). Default is boulingua blue; call
 % e.g. \blgsetlang{daf} after \usepackage to switch the sheet to that language.
 \definecolor{blgaccent}{HTML}{1A73E8}\definecolor{blgaccenthover}{HTML}{0B57D0}
-\definecolor{acc-daf}{HTML}{2370C7}\definecolor{acch-daf}{HTML}{1C5AA0}% German
-\definecolor{acc-efl}{HTML}{348D19}\definecolor{acch-efl}{HTML}{266612}% English
-\definecolor{acc-fle}{HTML}{588618}\definecolor{acch-fle}{HTML}{3F5F11}% French
+\definecolor{acc-daf}{HTML}{1D87A7}\definecolor{acch-daf}{HTML}{176780}% German
+\definecolor{acc-efl}{HTML}{248D19}\definecolor{acch-efl}{HTML}{1A6612}% English
+\definecolor{acc-fle}{HTML}{4B8D19}\definecolor{acch-fle}{HTML}{366612}% French
 \definecolor{acc-afl}{HTML}{4A23C7}\definecolor{acch-afl}{HTML}{3B1CA0}% Arabic
-\definecolor{acc-cfl}{HTML}{1C88A0}\definecolor{acch-cfl}{HTML}{156779}% Chinese
-\definecolor{acc-ele}{HTML}{2336C7}\definecolor{acch-ele}{HTML}{1C2CA0}% Spanish
-\definecolor{acc-gfl}{HTML}{C75D23}\definecolor{acch-gfl}{HTML}{A04B1C}% Greek
-\definecolor{acc-ils}{HTML}{8323C7}\definecolor{acch-ils}{HTML}{691CA0}% Italian
-\definecolor{acc-jfl}{HTML}{198D78}\definecolor{acch-jfl}{HTML}{126656}% Japanese
-\definecolor{acc-lle}{HTML}{C72323}\definecolor{acch-lle}{HTML}{A01C1C}% Latin
-\definecolor{acc-nsf}{HTML}{198D4F}\definecolor{acch-nsf}{HTML}{126639}% Norwegian
-\definecolor{acc-nvt}{HTML}{198D26}\definecolor{acch-nvt}{HTML}{12661C}% Dutch
-\definecolor{acc-pfl}{HTML}{A0791C}\definecolor{acch-pfl}{HTML}{795B15}% Polish
-\definecolor{acc-ple}{HTML}{798017}\definecolor{acch-ple}{HTML}{545910}% Portuguese
-\definecolor{acc-rki}{HTML}{BC23C7}\definecolor{acch-rki}{HTML}{981CA0}% Russian
-\definecolor{acc-tfl}{HTML}{C72396}\definecolor{acch-tfl}{HTML}{A01C79}% Turkish
-\definecolor{acc-ufl}{HTML}{C7235D}\definecolor{acch-ufl}{HTML}{A01C4B}% Ukrainian
-\newcommand{\blgsetlang}[1]{\colorlet{blgaccent}{acc-#1}\colorlet{blgaccenthover}{acch-#1}}
+\definecolor{acc-cfl}{HTML}{2334C7}\definecolor{acch-cfl}{HTML}{1C2AA0}% Chinese
+\definecolor{acc-ele}{HTML}{198D81}\definecolor{acch-ele}{HTML}{12665D}% Spanish
+\definecolor{acc-gfl}{HTML}{C74A23}\definecolor{acch-gfl}{HTML}{A03B1C}% Greek
+\definecolor{acc-ils}{HTML}{8023C7}\definecolor{acch-ils}{HTML}{671CA0}% Italian
+\definecolor{acc-jfl}{HTML}{867B18}\definecolor{acch-jfl}{HTML}{5F5811}% Japanese
+\definecolor{acc-lle}{HTML}{C72334}\definecolor{acch-lle}{HTML}{A01C2A}% Latin
+\definecolor{acc-nsf}{HTML}{6D8618}\definecolor{acch-nsf}{HTML}{4D5F11}% Norwegian
+\definecolor{acc-nvt}{HTML}{198D34}\definecolor{acch-nvt}{HTML}{126626}% Dutch
+\definecolor{acc-pfl}{HTML}{AD701F}\definecolor{acch-pfl}{HTML}{865618}% Polish
+\definecolor{acc-ple}{HTML}{B723C7}\definecolor{acch-ple}{HTML}{931CA0}% Portuguese
+\definecolor{acc-rki}{HTML}{198D5B}\definecolor{acch-rki}{HTML}{126642}% Russian
+\definecolor{acc-tfl}{HTML}{C7236A}\definecolor{acch-tfl}{HTML}{A01C56}% Turkish
+\definecolor{acc-ufl}{HTML}{C723A1}\definecolor{acch-ufl}{HTML}{A01C82}% Ukrainian
+% \blglangmark[height] draws the language's abstract icon (accent-filled);
+% it is a no-op until \blgsetlang{code} points it at brand/icons/<code>.pdf.
+\newcommand{\blglangmark}[1][12mm]{}
+\newcommand{\blgsetlang}[1]{\colorlet{blgaccent}{acc-#1}\colorlet{blgaccenthover}{acch-#1}%
+  \renewcommand{\blglangmark}[1][12mm]{\includegraphics[height=##1]{brand/icons/#1.pdf}}}
 \definecolor{blgfg}{HTML}{23272B}
 \definecolor{blgmuted}{HTML}{6B7280}
 \definecolor{blgrule}{HTML}{E4E7EB}
@@ -74,7 +78,7 @@
 \newcommand{\worksheetheader}[4]{%
   \gdef\blgtitle{#1}%
   \thispagestyle{empty}%
-  {\blgsemibold\LARGE\color{blgfg} #1\par}%
+  {\blgsemibold\LARGE\color{blgfg} #1\hfill\raisebox{-3.2mm}[0pt][0pt]{\blglangmark[11mm]}\par}%
   \vspace{0.35em}%
   {\color{blgmuted}\normalsize #2 \hfill \blgbadge[#4]{#3}}\par
   \vspace{0.35em}{\color{blgaccent}\rule{\linewidth}{1.4pt}}\par

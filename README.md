@@ -1,40 +1,127 @@
 # sheetgen
 
 LaTeX **worksheet template** in the [boulingua](https://github.com/boulingua)
-design language, for generating printable exercise sheets that match the sister
-sites and the [slidegen](https://github.com/boulingua/slidegen) slide decks.
+design language, for printable exercise sheets that match the sister sites and
+the [slidegen](https://github.com/boulingua/slidegen) slide decks.
 
 > **Status — draft.** The style and an example worksheet are in place; a
 > content-to-worksheet generator will follow.
 
-## Design language
+---
 
-- **Fonts:** Source Sans 3 + JetBrains Mono — bundled in `fonts/`.
-- **Accent:** boulingua blue `#1a73e8`; CEFR ramp (A `#4caf50`, B `#1a73e8`, C `#8e24aa`).
-- **Watermark:** the boulingua logo + author **S. Le Boulanger** in the **lower-left of every page**.
-- Clean sections with accent rules, a level badge, answer-key boxes and writing lines.
+## Requirements
 
-## Usage
+- **XeLaTeX** or **LuaLaTeX** (the style uses `fontspec`; pdfLaTeX will not work).
+- No system fonts needed — Source Sans 3, JetBrains Mono and Permanent Marker are
+  bundled in `fonts/`.
+- **Compile twice.** The foot watermark is placed with TikZ `remember picture`,
+  which needs two passes to settle. `make` does this for you.
+
+## Quick start
 
 ```bash
-make example          # or: xelatex worksheet-template.tex  (run twice)
+make            # build worksheet-template.pdf (two XeLaTeX passes)
+make clean      # remove LaTeX aux files
 ```
 
-Requires **XeLaTeX** or **LuaLaTeX** (for `fontspec`). In your own sheet:
+or by hand:
+
+```bash
+xelatex worksheet-template.tex
+xelatex worksheet-template.tex
+```
+
+## Using the style in your own sheet
 
 ```latex
 \documentclass[11pt]{article}
 \usepackage{boulingua-sheet}
-\worksheetheader{Title}{Subtitle}{Niveau M}{blgcefrB}
+\blgsetlang{efl}          % pick the language accent + icon (see table below)
+
+\begin{document}
+% \worksheetheader{Title}{Subtitle line}{Badge label}{badge colour}
+\worksheetheader{Unit 2 — Growing Up}%
+  {English · Track G+M · Klasse 7 · Skill: Reading \& Writing}%
+  {Niveau M}{blgcefrB}
+
+\section{Vocabulary}
+Match each word to its definition.
+\blglines[4]
+
+\begin{blganswers}
+\textbf{1.} ...
+\end{blganswers}
+\end{document}
 ```
 
-Helpers: `\worksheetheader`, `\blgbadge`, `\blglines[n]`, and the `blganswers` box.
+### Helpers
+
+| Command / env | Purpose |
+|---|---|
+| `\worksheetheader{title}{subtitle}{badge}{badgecolour}` | Header block: title, language icon (top-right), subtitle, level badge, accent rule. The **title** is also picked up by the foot watermark. |
+| `\blgbadge[colour]{label}` | A rounded pill badge (defaults to the accent). |
+| `\blglines[n]` | *n* ruled writing lines for hand-written answers (default 3). |
+| `blganswers` (env) | A shaded "Solutions" answer-key box. |
+| `\blgsetlang{code}` | Set the language accent **and** icon in one call. Omit to stay boulingua blue. |
+| `\blglangmark[height]` | Draw the current language's icon (used in the header; available anywhere). |
+
+Badge colours: the shared CEFR ramp `blgcefrA` / `blgcefrB` / `blgcefrC`, or the
+language accent `blgaccent`.
+
+## Design language
+
+- **Fonts:** Source Sans 3 (headings/body) + JetBrains Mono (code), bundled.
+- **CEFR ramp** (shared across all sites, independent of language):
+  A `#4CAF50`, B `#1A73E8`, C `#8E24AA`.
+- **Watermark:** boulingua logo + `© S. Le Boulanger · <title>`, centred at the
+  foot of every page (`<title>` comes from `\worksheetheader`).
+- **Per-language accent + icon** — see below.
+
+## Per-language accent colours & icons
+
+Every language project has **its own signature accent** and **its own abstract
+icon**. The accents are **flag-safe** — each hue is deliberately chosen *not* to
+appear in that language's own flag — mutually distinct (≥20° apart on the hue
+wheel), kept clear of the boulingua hub blue, and contrast-checked for light and
+dark backgrounds. Select one with `\blgsetlang{code}`:
+
+<!-- palette:begin -->
+| Code | Language | Icon | Light accent | Dark accent |
+|------|----------|------|--------------|-------------|
+| `daf` | German | hexagon | `#1D87A7` | `#7ECEE7` |
+| `efl` | English | circle | `#248D19` | `#89E77E` |
+| `fle` | French | square | `#4B8D19` | `#ACE77E` |
+| `afl` | Arabic | pentagon | `#4A23C7` | `#977EE7` |
+| `cfl` | Chinese | triangle | `#2334C7` | `#7E89E7` |
+| `ele` | Spanish | diamond | `#198D81` | `#7EE7DC` |
+| `gfl` | Greek | U-shape | `#C74A23` | `#E7977E` |
+| `ils` | Italian | ring | `#8023C7` | `#B97EE7` |
+| `jfl` | Japanese | rounded square | `#867B18` | `#E7DC7E` |
+| `lle` | Latin | semicircle | `#C72334` | `#E77E89` |
+| `nsf` | Norwegian | star | `#6D8618` | `#CEE77E` |
+| `nvt` | Dutch | plus | `#198D34` | `#7EE797` |
+| `pfl` | Polish | chevron | `#AD701F` | `#E7B97E` |
+| `ple` | Portuguese | trapezoid | `#B723C7` | `#DC7EE7` |
+| `rki` | Russian | octagon | `#198D5B` | `#7EE7B9` |
+| `tfl` | Turkish | arch | `#C7236A` | `#E77EAC` |
+| `ufl` | Ukrainian | heptagon | `#C723A1` | `#E77ECE` |
+<!-- palette:end -->
+
+The worksheets use the **light** accent (they print on white). The dark values
+are the matching web dark-theme accents, kept here so the whole boulingua colour
+system lives in one place. The icons in `brand/icons/<code>.pdf` are the same
+marks used in each language's README and on the hub website.
 
 ## Files
 
-- `boulingua-sheet.sty` — the style package
-- `worksheet-template.tex` — worked example
-- `fonts/`, `assets/boulingua-logo.png` — bundled assets
+```
+boulingua-sheet.sty        the style (palette, fonts, header, helpers, \blgsetlang)
+worksheet-template.tex     worked example worksheet
+brand/icons/<code>.pdf     17 per-language icons (accent-filled)
+fonts/                     bundled TTFs
+assets/boulingua-logo.png  watermark logo (black-on-transparent)
+Makefile
+```
 
 ## Licence
 
